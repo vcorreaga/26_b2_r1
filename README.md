@@ -1,133 +1,83 @@
-# Proyecto - Sistema de Gestión de Estudiantes
+# M1P - Actividad 1 - Configuración y Pruebas de Proyecto Spring Boot
 
-Este es un proyecto backend desarrollado con **Java 21** y **Spring Boot** para la gestión de estudiantes. Incluye una API RESTful que permite crear, leer, actualizar y eliminar (CRUD) registros de estudiantes, persistiendo los datos en una base de datos **PostgreSQL**.
+**Nombre:** Viadis Correa  
+**Repositorio forkeado:** https://github.com/vcorreaga/26_b2_r1
 
-## 🚀 Tecnologías Utilizadas
+---
 
-- **Java 21**: Lenguaje de programación.
-- **Spring Boot 3.x**: Framework para el desarrollo de la aplicación.
-- **Maven**: Gestor de dependencias y construcción.
-- **PostgreSQL**: Base de datos relacional.
-- **Lombok**: Librería para reducir el código boilerplate (Getters, Setters, etc.).
-- **Spring Data JPA**: Abstracción para la capa de persistencia.
+## 1. Descripción
+En esta actividad se realizó la configuración y validación de un proyecto Spring Boot conectado a una base de datos PostgreSQL en la nube mediante Prisma.io.  
+También se ejecutaron pruebas de los endpoints CRUD de la API y las pruebas internas del proyecto.
 
-## 📋 Requisitos Previos
+---
 
-Asegúrate de tener instalado lo siguiente en tu entorno local:
+## 2. Evidencia de la base de datos en Prisma.io
 
-- [Java JDK 21](https://www.oracle.com/java/technologies/downloads/#java21)
-- [Maven](https://maven.apache.org/download.cgi)
-- Cliente para probar la API (como [Postman](https://www.postman.com/) o [Insomnia](https://insomnia.rest/)).
+### 2.1 Proyecto y base de datos creados en Prisma.io
+![Prisma general](./evidencias/01-prisma-general.png)
 
-## ⚙️ Configuración
+### 2.2 Configuración de connection strings en Prisma.io
+> Nota: las credenciales se mantienen ocultas por seguridad.
 
-La configuración de la base de datos se maneja a través de variables de entorno definidas en un archivo `.env` en la raíz del proyecto.
+![Prisma connection strings](./evidencias/02-prisma-connection-strings.png)
 
-1.  Copia el archivo de ejemplo:
-    ```bash
-    copy .env.example .env
-    ```
+---
 
-2.  Edita el archivo `.env` y define tus credenciales:
-    ```ini
-    DB_URL=jdbc:postgresql://localhost:5432/tu_base_de_datos
-    DB_USERNAME=tu_usuario
-    DB_PASSWORD=tu_contraseña
-    ```
+## 3. Evidencia de ejecución del proyecto Spring Boot
 
-> **Nota:** El archivo `.env` está excluido del control de versiones para mantener tus credenciales seguras.
+### 3.1 Ejecución de la aplicación
+En esta evidencia se muestra que el proyecto se ejecutó correctamente y quedó disponible en el puerto 8080.
 
-## 🛠️ Instalación y Ejecución (Windows)
+![Spring Boot ejecución](./evidencias/03-springboot-ejecucion.png)
 
-1.  **Clonar el repositorio**:
-    ```powershell
-    git clone <url-del-repositorio>
-    cd pi
-    ```
+---
 
-2.  **Compilar el proyecto**:
-    Asegúrate de estar en la raíz del proyecto y ejecuta:
-    ```powershell
-    .\mvnw.cmd clean install
-    ```
-    *Nota: Si tienes Maven instalado globalmente, puedes usar simplemente `mvn clean install`.*
+## 4. Evidencias de pruebas de la API (CRUD)
 
-3.  **Ejecutar la aplicación**:
-    ```powershell
-    .\mvnw.cmd spring-boot:run
-    ```
+### 4.1 GET ALL - Lista inicial de estudiantes
+Se verificó inicialmente el endpoint para consultar todos los estudiantes. La respuesta fue una lista vacía.
 
-    La aplicación se iniciará en el puerto `8080` (por defecto).
+#### Evidencia desde navegador
+![GET ALL vacío web](./evidencias/04-1-get-all-vacio.png)
 
-## 🔌 Uso de la API (Endpoints)
+#### Evidencia desde Postman
+![GET ALL vacío Postman](./evidencias/04-get-all-vacio.png)
 
-La API base es `/api/students`. A continuación se detallan los endpoints disponibles:
+### 4.2 POST - Crear estudiante
+Se creó un estudiante de prueba mediante el endpoint POST.
 
-### 1. Obtener todos los estudiantes
-- **Método**: `GET`
-- **URL**: `/api/students`
-- **Respuesta**: Lista de estudiantes en formato JSON.
+![POST crear estudiante](./evidencias/05-post-crear-estudiante.png)
 
-### 2. Obtener un estudiante por ID
-- **Método**: `GET`
-- **URL**: `/api/students/{id}`
-- **Ejemplo**: `/api/students/1`
+### 4.3 GET ALL - Lista con datos
+Después de crear el estudiante, se consultó nuevamente la lista general y ya se visualizó el registro creado.
 
-### 3. Obtener un estudiante por Email
-- **Método**: `GET`
-- **URL**: `/api/students/email/{email}`
-- **Ejemplo**: `/api/students/email/ejemplo@correo.com`
+![GET ALL con datos](./evidencias/06-get-all-con-datos.png)
 
-### 4. Crear un nuevo estudiante
-- **Método**: `POST`
-- **URL**: `/api/students`
-- **Body (JSON)**:
-    ```json
-    {
-      "firstName": "Juan",
-      "lastName": "Pérez",
-      "email": "juan.perez@example.com",
-      "birthDate": "2000-01-15",
-      "phone": "1234567890"
-    }
-    ```
+### 4.4 GET by ID - Consultar estudiante por ID
+Se consultó el estudiante creado utilizando su ID.
 
-### 5. Actualizar un estudiante
-- **Método**: `PUT`
-- **URL**: `/api/students/{id}`
-- **Ejemplo**: `/api/students/1`
-- **Body (JSON)**:
-    ```json
-    {
-      "firstName": "Juan Carlos",
-      "lastName": "Pérez",
-      "email": "juan.perez@example.com",
-      "birthDate": "2000-01-15",
-      "phone": "0987654321"
-    }
-    ```
+![GET by ID](./evidencias/07-get-by-id.png)
 
-### 6. Eliminar un estudiante
-- **Método**: `DELETE`
-- **URL**: `/api/students/{id}`
-- **Ejemplo**: `/api/students/1`
+### 4.5 GET by Email - Consultar estudiante por correo electrónico
+Se consultó el estudiante usando el correo registrado.
 
-## 🧪 Ejecutar Pruebas
+![GET by Email](./evidencias/08-get-by-email.png)
 
-Para ejecutar las pruebas unitarias y de integración, usa el siguiente comando:
+### 4.6 PUT - Actualizar estudiante
+Se actualizó la información del estudiante mediante el endpoint PUT.
 
-```powershell
+![PUT actualizar](./evidencias/09-put-actualizar.png)
+
+### 4.7 DELETE - Eliminar estudiante
+Se eliminó el estudiante creado mediante el endpoint DELETE.
+
+![DELETE eliminar](./evidencias/10-delete-eliminar.png)
+
+---
+
+## 5. Evidencia de ejecución de pruebas internas
+
+Se ejecutaron las pruebas del proyecto con el siguiente comando:
+
+```bash
 .\mvnw.cmd test
-```
-
-## 📂 Estructura del Proyecto
-
-```
-src/main/java/com/cesde/pi
-├── controller    # Controladores REST (StudentController)
-├── model         # Entidades JPA (Student)
-├── repository    # Interfaces de Repositorio (StudentRepository)
-├── service       # Lógica de Negocio (StudentService)
-├── dto           # Objetos de Transferencia de Datos
-└── exception     # Manejo de Excepciones Globales
-```
